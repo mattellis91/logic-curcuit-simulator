@@ -3,6 +3,9 @@
 @import '../node_modules/drawflow/dist/drawflow.min.css';
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 
+$onColour: #888;
+$offColour: #e1e1e1;
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -19,32 +22,28 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   width: 50px !important;
   padding-top:20px;
   text-align: center;
+  font-weight: bold;
   font-size: large;
-  color:white !important;
 }
 
 .input-component-on {
   height: 50px !important;
   width: 50px !important;
   text-align: center;
-  color:white !important;
   font-size: large;
+  font-weight: bold;
   padding-top:20px;
-  background-color: green !important;
-  .output {
-    border-color: green !important;
-  }
 }
 
 .on-path {
   path{
-    stroke: green !important;
+    stroke: $onColour !important;
   }
 }
 
 .off-path {
   path{
-    stroke: red !important;
+    stroke: $offColour !important;
   }
 }
 
@@ -52,27 +51,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: 50px !important;
   width: 50px !important;
   padding-top:20px;
+  font-weight: bold;
   text-align: center;
-  color:white !important;
   font-size: large;
-  background-color: red !important;
-  .output {
-    border-color: red !important;
-  }
-}
-
-.output-off {
-  background-color:red !important;
-  .input {
-    border-color: red !important;
-  }
-}
-
-.output-on {
-  background-color:green !important;
-  .input {
-    border-color: green !important;
-  }
 }
 
 .display-8-bit {
@@ -302,16 +283,32 @@ cursor: pointer;
 
 .drawflow .drawflow-node {
   background: var(--background-color);
-  border: 1px solid var(--border-color);
+  border: 3px solid black;
   -webkit-box-shadow: 0 2px 15px 2px var(--border-color);
   box-shadow: 0 2px 15px 2px var(--border-color);
   padding: 0px;
   //width: 200px;
 }
 
+.drawflow-node {
+  &.and-gate, &.or-gate, &.xor-gate, & {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+.drawflow-node.not-gate {
+  height: 65px;
+  width: 65px;
+}
+
+.gate-content {
+  font-size: 3rem;
+  text-align: center;
+}
+
 .drawflow .drawflow-node.selected  {
   background: white;
-  border: 1px solid #4ea9ff;
   -webkit-box-shadow: 0 2px 20px 2px #4ea9ff;
   box-shadow: 0 2px 20px 2px #4ea9ff;
 }
@@ -338,11 +335,13 @@ cursor: pointer;
 
 .drawflow .drawflow-node .output {
   right: 10px;
+  border: 3px solid black;
 }
 
 .drawflow .drawflow-node .input {
   left: -10px;
   background: white;
+  border: 3px solid black;
 }
 
 .drawflow > .drawflow-delete {
@@ -458,4 +457,19 @@ cursor: pointer;
   .modal-content {
     width: 80%;
   }
+}
+
+.dock-tooltip {
+  // &:after{
+  //   content: '';
+  //   position: absolute;
+  //   left: 42%;
+  //   top: 100%;
+  //   width: 0;
+  //   height: 0;
+  //   border-left: 20px solid transparent;
+  //   border-right: 20px solid transparent;
+  //   border-top: 20px solid #e8e8e8;
+  //   clear: both;
+  // }
 }

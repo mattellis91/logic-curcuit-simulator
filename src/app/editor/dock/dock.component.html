@@ -1,0 +1,19 @@
+<div class="dock">
+    <div 
+        *ngFor="let element of dockElements" class="dock-element"
+        draggable="true"
+        (dragstart)="dragCallBack($event)" 
+        data-node="and-gate"
+        #tooltip="matTooltip"
+        matTooltip="{{element.tooltip}}"
+        [matTooltipPosition]="'above'"
+        matTooltipHideDelay="0"
+        matTooltipClass="dock-tooltip">
+        <div 
+        *ngIf="element.content.startsWith('fa'); else noIcon">
+            <i class="{{element.content}}"></i>
+        </div>
+        <ng-template #noIcon><div
+        >{{element.content}}</div></ng-template>
+    </div>
+</div>

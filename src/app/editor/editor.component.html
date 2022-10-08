@@ -39,10 +39,10 @@
       </div>
     </mat-drawer>
     <mat-drawer-content>
-      <button style="position: absolute; z-index: -100; right: 50%;"id="drawer-toggle-button" mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>  
-      <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+      <button id="drawer-toggle-button" mat-raised-button (click)="drawer.toggle()">Toggle drawer</button>  
+      <!-- <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let timePeriod of timePeriods" cdkDrag>{{timePeriod}}</div>
-      </div>
+      </div> -->
       <div id="drawflow" (drop)="drop($event)" (dragover)="allowDrop($event)"></div>
 
       <div class="col-right">
@@ -56,17 +56,19 @@
             <!-- <i id="lock" class="fas fa-lock" (click)="editor.editor_mode='fixed'; changeMode('lock');"></i>
             <i id="unlock" class="fas fa-lock-open" (click)="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i> -->
           </div>
-          <div class="bar-zoom">
+          <!-- <div class="bar-zoom">
             <i class="fas fa-search-minus" (click)="editor.zoom_out()"></i>
             <i class="fas fa-search" (click)="editor.zoom_reset()"></i>
             <i class="fas fa-search-plus" (click)="editor.zoom_in()"></i>
             <i class="fas fa-save" (click)="exportCurcuit()"></i>
-          </div>
+          </div> -->
         </div>
       </div>
 
+      <app-editor-dock [dragCallBack]="drag"></app-editor-dock>
+
       
     </mat-drawer-content>
-  </mat-drawer-container>]
+  </mat-drawer-container>
 
   

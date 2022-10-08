@@ -1,0 +1,23 @@
+.dock {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    color:white;
+    height: 50px;
+    left: 20%;
+    bottom: 20px;
+    border-radius: 15px;
+    background-color: black;
+
+    .dock-element {
+        width: 50px;
+        text-align: center;
+        border-right: 1px solid #eeee;
+        font-size: 20px;
+        padding: 15px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+

@@ -12,12 +12,15 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import {EditorComponent} from './editor/editor.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { DockComponent } from './editor/dock/dock.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    EditorComponent
+    EditorComponent,
+    DockComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatSelectModule,
     MatButtonModule,
     DragDropModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

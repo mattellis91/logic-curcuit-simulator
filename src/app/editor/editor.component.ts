@@ -28,11 +28,25 @@ export class EditorComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     var id = document.getElementById("drawflow") as any;
-    
  
     this.editor = new Drawflow(id);
     this.editor.useuuid = true;
     this.editor.force_first_input = true;
+
+
+    this.editor.curvature = 0;
+    this.editor.reroute_curvature_start_end = 0;
+    this.editor.reroute_curvature = 0;
+
+    this.editor.createCurvature = function(
+      start_pos_x:number, 
+      start_pos_y:number, 
+      end_pos_x:number, end_pos_y:number, 
+      curvature_value:number) {
+      var center_x = ((end_pos_x - start_pos_x)/2)+start_pos_x;
+      return ' M ' + start_pos_x + ' ' + start_pos_y + ' L '+ center_x +' ' +  start_pos_y  + ' L ' + center_x + ' ' +  end_pos_y  + ' L ' + end_pos_x + ' ' + end_pos_y;
+    }
+
 
     this.editor.on('nodeCreated', function(id:string) {
       console.log("Node created " + id);
@@ -91,9 +105,9 @@ export class EditorComponent implements AfterViewInit{
     this.editor.on('connectionRemoved', (connection:Record<string, unknown>) => {
       //reset truth table on connection loss
       const inputNode = this.editor.getNodeFromId(connection.input_id);
-      if(inputNode.data.hasTruthTable) {
-        this.resetGateTruthTable(inputNode);
-      }
+      // if(inputNode.data.hasTruthTable) {
+      //   this.resetGateTruthTable(inputNode);
+      // }
     });
 
     this.editor.start();
@@ -136,9 +150,9 @@ export class EditorComponent implements AfterViewInit{
             const inputTwoValue = this.editor.getNodeFromId(inputTwoConnections[0].node).data.value;
             const logicGateValue =  this.getLogicGateValue(gate.data.type,inputOneValue, inputTwoValue);
 
-            this.resetGateTruthTable(gate);
+            //this.resetGateTruthTable(gate);
             const textClass = logicGateValue ? "green-text" : "red-text";
-            document.getElementById("node-"+gate.id)?.getElementsByClassName(gate.data.type+"-"+inputOneValue+"-"+inputTwoValue)[0].classList.add("bold-text",textClass);  
+            //document.getElementById("node-"+gate.id)?.getElementsByClassName(gate.data.type+"-"+inputOneValue+"-"+inputTwoValue)[0].classList.add("bold-text",textClass);  
 
             this.editor.updateNodeDataFromId(gate.id, {...gate.data, value : this.getLogicGateValue(gate.data.type,inputOneValue, inputTwoValue)});
             if(gate.outputs.output_1.connections.length) {
@@ -152,11 +166,11 @@ export class EditorComponent implements AfterViewInit{
           if(notInputConnections.length) {
             const notInputValue = this.editor.getNodeFromId(notInputConnections[0].node).data.value;
             const logicGateValue = this.getLogicGateValue(gate.data.type,notInputValue,null);
-            this.resetGateTruthTable(gate);
+            //this.resetGateTruthTable(gate);
             const textClass = logicGateValue ? "green-text" : "red-text";
             console.log(gate.id);
             console.log( document.getElementById("node-"+gate.id))
-            document.getElementById("node-"+gate.id)?.getElementsByClassName(gate.data.type+"-"+notInputValue)[0].classList.add("bold-text",textClass);
+            //document.getElementById("node-"+gate.id)?.getElementsByClassName(gate.data.type+"-"+notInputValue)[0].classList.add("bold-text",textClass);
             if(gate.data.value !== logicGateValue) {
               this.editor.updateNodeDataFromId(gate.id, {...gate.data, value : this.getLogicGateValue(gate.data.type,notInputValue, null)});
               if(gate.outputs.output_1.connections.length) {
