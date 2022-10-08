@@ -1,9 +1,9 @@
 <div class="dock">
     <div 
         *ngFor="let element of dockElements" class="dock-element"
-        draggable="true"
+        draggable="{{element.draggable}}"
         (dragstart)="dragCallBack($event)" 
-        data-node="and-gate"
+        attr.data-node="{{element.type}}"
         #tooltip="matTooltip"
         matTooltip="{{element.tooltip}}"
         [matTooltipPosition]="'above'"
