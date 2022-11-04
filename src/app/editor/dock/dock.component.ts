@@ -29,7 +29,7 @@ export class DockComponent {
         },
         {
             content: 'i',
-            type: 'input-component-on',
+            type: 'input-component-variable',
             tooltip: 'Variable input',
             draggable: true
         },
@@ -85,6 +85,12 @@ export class DockComponent {
             content: 'fas fa-search-plus',
             type: 'zoom-in',
             tooltip: 'Zoom in',
+            draggable: false
+        },
+        {
+            content: 'fas fa-lock',
+            type: 'zoom-in',
+            tooltip: 'Lock board',
             draggable: false
         },
         {

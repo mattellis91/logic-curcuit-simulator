@@ -13,6 +13,7 @@ import { EditorItemNandGate } from './editor-items/editor-item-nand-gate';
 import { EditorItemNorGate } from './editor-items/editor-item-nor-gate';
 import { Editor8BitDisplay } from './editor-items/editor-item-8bit-display';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { EditorItemInputVariable } from './editor-items/editor-item-input-variable';
 
 @Component({
   selector: 'app-editor',
@@ -31,6 +32,7 @@ export class EditorComponent implements AfterViewInit{
  
     this.editor = new Drawflow(id);
     this.editor.useuuid = true;
+    this.editor.reroute = true;
     this.editor.force_first_input = true;
 
 
@@ -52,13 +54,30 @@ export class EditorComponent implements AfterViewInit{
       console.log("Node created " + id);
     })
 
+    this.editor.on('clickEnd', (e:any) => {
+      const clickedNode = e.target.closest(".drawflow-node"); 
+      console.log(this);
+      if(clickedNode) {
+        const clickedNodeId = clickedNode.id.substring("#node-".length - 1);
+        const editorNode = this.editor.getNodeFromId(clickedNodeId);
+        console.log(editorNode.data);
+
+
+        this.editor.updateNodeDataFromId(clickedNodeId, {...editorNode.data, value: 0});
+        console.log(document.querySelector(`.drawflow-node[id=node-${clickedNodeId}] .drawflow_content_node`));
+        clickedNode.querySelector('.input-variable-container span').innerHTML = '0';
+      } 
+    })
+
     this.editor.on('nodeRemoved', (id:string) => {
       console.log("Node removed " + id);
     })
 
     this.editor.on('nodeSelected', (id:string) => {
-      console.log("Node selected " + id);
-      console.log(this.editor.getNodeFromId(id));
+      console.log(id);
+      const node = this.editor.getNodeFromId(id);
+      console.log(node);
+      // console.log("Node selected " + id);
     })
 
     this.editor.on('connectionCreated', (connection:Record<string, unknown>) => {
@@ -283,6 +302,10 @@ export class EditorComponent implements AfterViewInit{
             const inputOff = new EditorItemInputOff();        
             this.editor.addNode('input-off-'+cuid(), inputOff.inputs, inputOff.outputs, pos_x, pos_y, inputOff.className, inputOff.data, inputOff.html);
             break; 
+          case 'input-component-variable': 
+            const inputVariable = new EditorItemInputVariable();
+            this.editor.addNode('input-variable-'+cuid(), inputVariable.inputs, inputVariable.outputs, pos_x, pos_y, inputVariable.className, inputVariable.data, inputVariable.html);
+            break;
           case 'output-component' :
             const output = new EditorItemOutput();
             this.editor.addNode('output-'+cuid(), output.inputs, output.outputs, pos_x, pos_y, output.className, output.data, output.html);

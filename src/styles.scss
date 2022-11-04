@@ -35,6 +35,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding-top:20px;
 }
 
+.input-component-variable {
+  height: 50px !important;
+  width: 50px !important;
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  cursor: pointer !important;
+  padding:20px;
+
+  .input-btn {
+    border: 3px solid black;
+    height: 35px;
+    width: 35px;
+    margin-left: 4px;
+    border-radius: 4px;
+  }
+}
+
 .on-path {
   path{
     stroke: $onColour !important;

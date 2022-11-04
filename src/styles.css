@@ -490,6 +490,10 @@ btn-lock {
   cursor: pointer;
 }
 
+.input-component-variable {
+  cursor: pointer !important;
+}
+
 @media only screen and (max-width: 768px) {
   .modal-content {
     width: 80%;
